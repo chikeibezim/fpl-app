@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
+import reduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import App from './components/App';
+import reducers from './reducers/';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
+import axios from 'axios';
+window.axios = axios;
+
+
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<Provider store={store}><App /></Provider>,
+	document.querySelector('#root')
 );
 
 // If you want to start measuring performance in your app, pass a function
